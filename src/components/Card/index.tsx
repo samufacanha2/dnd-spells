@@ -21,6 +21,8 @@ interface CardProps {
   image?: string;
 }
 
+import bg_image from '../../assets/card_bg.png';
+
 const Card: React.FC<CardProps> = ({
   title,
   level,
@@ -52,7 +54,7 @@ const Card: React.FC<CardProps> = ({
 
         <Description contentEditable>{description}</Description>
       </CardText>
-      <CardImage src="./card_bg.png" />;
+      <CardImage src={bg_image} />;
     </CardContainer>
   );
 };
