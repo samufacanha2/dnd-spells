@@ -54,7 +54,7 @@ const Card: React.FC<CardProps> = ({
 
         <Description contentEditable>{description}</Description>
       </CardText>
-      <CardImage src={bg_image} />;
+      <CardImage src={bg_image} />
     </CardContainer>
   );
 };

@@ -5,7 +5,7 @@ export const CardContainer = styled.div`
   --default-height: 1351;
   --default-width: 975;
 
-  width: 90vw;
+  width: 312px;
   aspect-ratio: var(--default-width) / var(--default-height);
   margin: 2rem auto;
 `;
@@ -33,36 +33,36 @@ const centerStyle = css`
 `;
 
 export const Title = styled.h1`
-  font-size: 4vw;
+  font-size: 1rem;
 
   position: absolute;
-  top: 8.5vw;
+  top: 2rem;
   ${centerStyle}
 `;
 
 export const Level = styled.h2`
-  font-size: 3vw;
+  font-size: 0.8rem;
   position: absolute;
   ${centerStyle}
 
-  top: 14vw;
+  top: 3rem;
 `;
 
 export const Details = styled.div`
-  font-size: 3vw;
+  font-size: 0.75rem;
   position: absolute;
 
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
 
   font-weight: 600;
 
-  top: 22vw;
+  top: 5rem;
   left: 0;
   right: 0;
 
-  padding: 0 7vw;
+  padding: 0 1.5rem;
 `;
 
 export const Row = styled.div`
@@ -71,19 +71,19 @@ export const Row = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  gap: 2rem;
+  gap: 0.125rem;
 `;
 
 export const Description = styled.p`
-  font-size: 3.2vw;
+  font-size: 0.75rem;
   font-weight: 400;
   line-height: 1.5;
 
   position: absolute;
 
-  top: 40vw;
+  top: 9rem;
   left: 0;
   right: 0;
 
-  padding: 0 10vw 0 12vw;
+  padding: 0 2.25rem 0 2.5rem;
 `;
