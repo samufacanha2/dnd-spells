@@ -142,8 +142,10 @@ Error generating stack: `+l.message+`
  * @license MIT
  */function fv(e){let{basename:t,children:n,window:r}=e,o=x.useRef();o.current==null&&(o.current=m1({window:r,v5Compat:!0}));let l=o.current,[i,u]=x.useState({action:l.action,location:l.location});return x.useLayoutEffect(()=>l.listen(u),[l]),x.createElement(sv,{basename:t,children:n,location:i.location,navigationType:i.action,navigator:l})}var Rc;(function(e){e.UseScrollRestoration="useScrollRestoration",e.UseSubmitImpl="useSubmitImpl",e.UseFetcher="useFetcher"})(Rc||(Rc={}));var Nc;(function(e){e.UseFetchers="useFetchers",e.UseScrollRestoration="useScrollRestoration"})(Nc||(Nc={}));const dv=It.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(312px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 0.125rem;
+  row-gap: 2rem;
+
   padding: 2rem 0;
 `,pv=It.div`
   position: relative;
@@ -152,7 +154,8 @@ Error generating stack: `+l.message+`
 
   width: 312px;
   aspect-ratio: var(--default-width) / var(--default-height);
-  margin: 2rem auto;
+
+  zoom: 0.8;
 `,hv=It.img`
   width: 100%;
   height: 100%;

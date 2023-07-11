@@ -2,8 +2,10 @@ import styled, { css } from 'styled-components';
 
 export const CardsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(312px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 0.125rem;
+  row-gap: 2rem;
+
   padding: 2rem 0;
 `;
 
@@ -14,7 +16,8 @@ export const CardContainer = styled.div`
 
   width: 312px;
   aspect-ratio: var(--default-width) / var(--default-height);
-  margin: 2rem auto;
+
+  zoom: 0.8;
 `;
 
 export const CardImage = styled.img`
