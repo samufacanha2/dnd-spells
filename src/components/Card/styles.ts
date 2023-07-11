@@ -84,13 +84,13 @@ export const Row = styled.div`
 `;
 
 export const Description = styled.p`
-  font-size: 0.7rem;
+  font-size: 0.66rem;
   font-weight: 400;
   line-height: 1.05;
 
   position: absolute;
 
-  top: 9rem;
+  top: 8.5rem;
   left: 0;
   right: 0;
 
