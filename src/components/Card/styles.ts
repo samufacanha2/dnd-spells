@@ -1,5 +1,12 @@
 import styled, { css } from 'styled-components';
 
+export const CardsContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(312px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+`;
+
 export const CardContainer = styled.div`
   position: relative;
   --default-height: 1351;
@@ -77,13 +84,13 @@ export const Row = styled.div`
 `;
 
 export const Description = styled.p`
-  font-size: 0.66rem;
+  font-size: 0.7rem;
   font-weight: 400;
   line-height: 1.05;
 
   position: absolute;
 
-  top: 8.5rem;
+  top: 9rem;
   left: 0;
   right: 0;
 

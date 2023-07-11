@@ -1,4 +1,5 @@
 import Card from 'components/Card';
+import { CardsContainer } from 'components/Card/styles';
 import React from 'react';
 
 const Home: React.FC = () => {
@@ -20,7 +21,20 @@ const Home: React.FC = () => {
     No final de cada turno de uma criatura afetada, ela pode fazer um novo teste de resistência de Constituição para encerrar o efeito da gravidade intensificada.`,
   };
 
-  return <Card {...cardProps} />;
+  const [cardCount, setCardCount] = React.useState(1);
+
+  return (
+    <>
+      <button onClick={() => setCardCount(cardCount + 1)}>Add Card</button>
+
+      <button onClick={() => setCardCount(cardCount - 1)}>Remove Card</button>
+      <CardsContainer>
+        {Array.from({ length: cardCount }).map((_, index) => (
+          <Card key={index} {...cardProps} />
+        ))}
+      </CardsContainer>
+    </>
+  );
 };
 
 export default Home;
