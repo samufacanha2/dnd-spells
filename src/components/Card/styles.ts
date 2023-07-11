@@ -8,6 +8,11 @@ export const CardsContainer = styled.div`
 
   padding: 2rem 0;
 `;
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+`;
 
 export const CardContainer = styled.div`
   position: relative;
