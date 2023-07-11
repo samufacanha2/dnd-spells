@@ -34,6 +34,8 @@ const centerStyle = css`
 
 export const Title = styled.h1`
   font-size: 1rem;
+  width: 75%;
+  text-align: center;
 
   position: absolute;
   top: 2rem;
@@ -45,7 +47,7 @@ export const Level = styled.h2`
   position: absolute;
   ${centerStyle}
 
-  top: 3rem;
+  top: 3.2rem;
 `;
 
 export const Details = styled.div`
@@ -75,13 +77,13 @@ export const Row = styled.div`
 `;
 
 export const Description = styled.p`
-  font-size: 0.75rem;
+  font-size: 0.66rem;
   font-weight: 400;
-  line-height: 1.5;
+  line-height: 1.05;
 
   position: absolute;
 
-  top: 9rem;
+  top: 8.5rem;
   left: 0;
   right: 0;
 

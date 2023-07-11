@@ -38,17 +38,17 @@ const Card: React.FC<CardProps> = ({
     <CardContainer>
       <CardText>
         <Title contentEditable>{title}</Title>
-        <Level contentEditable>SPELL LVL {level}</Level>
+        <Level contentEditable>LVL {level}</Level>
         <Details>
           <Row>
-            <span contentEditable>Casting Time: {casting_time}</span>
-            <span contentEditable>Range/Area: {range_area}</span>
+            <span contentEditable>Tempo de Cast: {casting_time}</span>
+            <span contentEditable>Alcance/Área: {range_area}</span>
           </Row>
           <Row>
-            <span contentEditable>Components: {components}</span>
+            <span contentEditable>Componentes: {components}</span>
           </Row>
           <Row>
-            <span contentEditable>Duration: {duration}</span>
+            <span contentEditable>Duração: {duration}</span>
           </Row>
         </Details>
 
