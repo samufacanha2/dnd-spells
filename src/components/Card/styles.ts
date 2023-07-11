@@ -1,4 +1,5 @@
-import { lighten } from 'polished';
+import { slideInX } from 'pages/Home/styles';
+import { lighten, transparentize } from 'polished';
 import styled, { css } from 'styled-components/macro';
 
 const ReactSelect = css`
@@ -35,6 +36,9 @@ const ReactSelect = css`
 
     min-height: 3rem;
     background-color: ${props => props.theme.primary};
+    box-shadow: 0 0.125rem 0.25rem
+      ${props => transparentize(0.5, props.theme.black)};
+    animation: ${slideInX} 0.3s ease-in-out;
 
     transition: 0.2s ease-in-out;
     &:hover {
@@ -95,7 +99,7 @@ const ReactSelect = css`
 
 export const CardsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(312px, 1fr));
   column-gap: 0.125rem;
   row-gap: 2rem;
 
@@ -105,7 +109,7 @@ export const CardsContainer = styled.div`
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 1rem;
 
   width: fit-content;
 
