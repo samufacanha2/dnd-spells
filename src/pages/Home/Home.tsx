@@ -1,9 +1,11 @@
 import Card from 'components/Card';
 import { CardsContainer } from 'components/Card/styles';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useQuery } from 'react-query';
+import ReactSelect from 'react-select';
 
 const Home: React.FC = () => {
-  const cardProps = {
+  let cardProps = {
     title: 'Fragmentação Gravitacional',
     level: '4',
     casting_time: '1 action',
@@ -21,13 +23,61 @@ const Home: React.FC = () => {
     No final de cada turno de uma criatura afetada, ela pode fazer um novo teste de resistência de Constituição para encerrar o efeito da gravidade intensificada.`,
   };
 
+  const { data: spells } = useQuery('spells', async () => {
+    const response = await fetch('https://www.dnd5eapi.co/api/spells');
+    const data = await response.json();
+
+    return data;
+  });
+
   const [cardCount, setCardCount] = React.useState(1);
+  const [selectedSpell, setSelectedSpell] = React.useState<any>();
+
+  const { data: spell } = useQuery(
+    ['spell', selectedSpell?.value],
+    async () => {
+      const response = await fetch(
+        `https://www.dnd5eapi.co/api/spells/${selectedSpell?.value}`,
+      );
+      const data = await response.json();
+
+      return data;
+    },
+    {
+      enabled: !!selectedSpell,
+    },
+  );
+
+  cardProps = {
+    title: spell?.name,
+    level: spell?.level,
+    casting_time: spell?.casting_time,
+    range_area: spell?.range,
+    components: spell?.components.join(', '),
+    duration: spell?.duration,
+    school: spell?.school?.name,
+    description: spell?.desc,
+  };
 
   return (
     <>
       <button onClick={() => setCardCount(cardCount + 1)}>Add Card</button>
 
       <button onClick={() => setCardCount(cardCount - 1)}>Remove Card</button>
+      <ReactSelect
+        options={spells?.results.map((spell: any) => ({
+          value: spell.index,
+          label: spell.name,
+        }))}
+        onChange={option => setSelectedSpell(option)}
+        styles={{
+          container: provided => ({
+            ...provided,
+            zIndex: 20,
+          }),
+        }}
+      />
+
       <CardsContainer>
         {Array.from({ length: cardCount }).map((_, index) => (
           <Card key={index} {...cardProps} />

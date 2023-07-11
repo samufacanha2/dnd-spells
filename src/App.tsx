@@ -9,13 +9,18 @@ import Router from 'routes';
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient();
 
 const App: React.FC = () => (
-  <ThemeProvider theme={dark}>
-    <ToastContainer autoClose={2000} position="top-right" />
-    <GlobalStyle />
-    <Router />
-  </ThemeProvider>
+  <QueryClientProvider client={queryClient}>
+    <ThemeProvider theme={dark}>
+      <ToastContainer autoClose={2000} position="top-right" />
+      <GlobalStyle />
+      <Router />
+    </ThemeProvider>
+  </QueryClientProvider>
 );
 
 export default App;

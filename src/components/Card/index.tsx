@@ -41,14 +41,14 @@ const Card: React.FC<CardProps> = ({
         <Level contentEditable>LVL {level}</Level>
         <Details>
           <Row>
-            <span contentEditable>Tempo de Cast: {casting_time}</span>
-            <span contentEditable>Alcance/Área: {range_area}</span>
+            <span contentEditable>Cast Time: {casting_time}</span>
+            <span contentEditable>Range/Area: {range_area}</span>
           </Row>
           <Row>
-            <span contentEditable>Componentes: {components}</span>
+            <span contentEditable>Components: {components}</span>
           </Row>
           <Row>
-            <span contentEditable>Duração: {duration}</span>
+            <span contentEditable>Duration: {duration}</span>
           </Row>
         </Details>
 
