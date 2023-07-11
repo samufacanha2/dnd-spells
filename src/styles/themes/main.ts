@@ -1,6 +1,7 @@
 const main = {
   title: 'main',
-  primary: '#AA33B5',
+  primary: 'rgb(252 226 192)',
+  secondary: 'rgb(158 107 66)',
   black: '#131313',
   background: '#27284E',
   status: {

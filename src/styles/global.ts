@@ -54,7 +54,7 @@ export default createGlobalStyle`
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: ${props => transparentize(0.2, props.theme.primary)};
+    background-color: ${props => transparentize(0.2, props.theme.secondary)};
 
     border-radius: 10px;
   }

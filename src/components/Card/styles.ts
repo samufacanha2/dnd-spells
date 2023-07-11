@@ -1,4 +1,97 @@
-import styled, { css } from 'styled-components';
+import { lighten } from 'polished';
+import styled, { css } from 'styled-components/macro';
+
+const ReactSelect = css`
+  .react-select {
+    margin: 0.25rem 0;
+    width: 100%;
+  }
+  .react-select-empty {
+    margin: 0.25rem 0;
+    width: 100%;
+    .react-select__control {
+      border: 1px dashed ${props => props.theme.secondary};
+      filter: opacity(0.7);
+      &:hover:not(:focus):not(:disabled) {
+        filter: opacity(1) brightness(1.2);
+      }
+    }
+  }
+  .react-select__control--is-focused {
+    border: none;
+    border-radius: 0.5rem;
+    height: 2.5rem;
+    width: 100%;
+    color: ${props => props.theme.secondary};
+  }
+
+  .react-select__control {
+    border-radius: 0.5rem;
+    border: 1px solid ${props => props.theme.secondary};
+    height: 2.5rem;
+    width: 100%;
+    padding: 0 0.625rem;
+    color: ${props => props.theme.secondary};
+
+    min-height: 3rem;
+    background-color: ${props => props.theme.primary};
+
+    transition: 0.2s ease-in-out;
+    &:hover {
+      border-color: ${({ theme }) => theme.secondary};
+      box-shadow: 0 0 0.5rem -0.125rem ${props => lighten(0.6, props.theme.primary)};
+    }
+  }
+  .react-select__control--is-focused {
+    color: ${props => props.theme.secondary};
+    border: 1px solid ${({ theme }) => theme.secondary};
+    box-shadow: 0 0 0.5rem -0.125rem ${props => lighten(0.6, props.theme.primary)};
+  }
+  .react-select__indicator-separator {
+    display: none;
+  }
+  .react-select__dropdown-indicator {
+    color: ${props => props.theme.secondary};
+    &:hover {
+      color: ${props => props.theme.secondary};
+    }
+  }
+  .react-select__value-container {
+    padding: 0.125rem;
+    height: 2rem;
+    width: 100%;
+    border-radius: 0.5rem;
+    border: none;
+    color: ${props => props.theme.secondary};
+    caret-color: ${props => props.theme.secondary};
+  }
+  .react-select__input {
+    color: ${props => props.theme.black} !important;
+  }
+  .react-select__menu {
+    background-color: ${props => props.theme.primary};
+    border-radius: 0.5rem;
+    border: none;
+    color: ${props => props.theme.secondary};
+    overflow: overlay;
+  }
+  .react-select__option {
+    background-color: unset;
+    border-radius: 0.5rem;
+    border: 1px solid transparent;
+    color: ${props => props.theme.black};
+    &:hover:not(:focus):not(:disabled) {
+      border: 1px solid ${props => props.theme.secondary};
+    }
+  }
+  .react-select__single-value {
+    color: ${props => props.theme.black};
+    font: 600 1rem 'Manrope', sans-serif;
+  }
+  .react-select--is-disabled {
+    filter: opacity(0.5) grayscale(0.75) brightness(1.1);
+  }
+`;
 
 export const CardsContainer = styled.div`
   display: grid;
@@ -6,12 +99,17 @@ export const CardsContainer = styled.div`
   column-gap: 0.125rem;
   row-gap: 2rem;
 
-  padding: 2rem 0;
+  padding: 1rem 0;
 `;
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+
+  width: fit-content;
+
+  ${ReactSelect}
 `;
 
 export const CardContainer = styled.div`
@@ -22,7 +120,9 @@ export const CardContainer = styled.div`
   width: 312px;
   aspect-ratio: var(--default-width) / var(--default-height);
 
-  zoom: 0.8;
+  @media screen and (min-width: 1200px) {
+    zoom: 0.8;
+  }
 `;
 
 export const CardImage = styled.img`
@@ -45,24 +145,22 @@ export const CardText = styled.div`
 const centerStyle = css`
   left: 50%;
   transform: translateX(-50%);
+  text-align: center;
+`;
+
+export const TitleAndLevel = styled.div`
+  position: absolute;
+  ${centerStyle}
+  top: 7%;
+  width: 75%;
 `;
 
 export const Title = styled.h1`
   font-size: 1rem;
-  width: 75%;
-  text-align: center;
-
-  position: absolute;
-  top: 2rem;
-  ${centerStyle}
 `;
 
 export const Level = styled.h2`
   font-size: 0.8rem;
-  position: absolute;
-  ${centerStyle}
-
-  top: 3.2rem;
 `;
 
 export const Details = styled.div`
@@ -75,11 +173,11 @@ export const Details = styled.div`
 
   font-weight: 600;
 
-  top: 5rem;
+  top: 18%;
   left: 0;
   right: 0;
 
-  padding: 0 1.5rem;
+  padding: 0 7%;
 `;
 
 export const Row = styled.div`
@@ -88,7 +186,7 @@ export const Row = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  gap: 0.125rem;
+  gap: 10%;
 `;
 
 export const Description = styled.p`
@@ -98,9 +196,15 @@ export const Description = styled.p`
 
   position: absolute;
 
-  top: 8.5rem;
+  top: 31%;
   left: 0;
   right: 0;
 
-  padding: 0 2.25rem 0 2.5rem;
+  height: 59%;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  margin: 0 11% 0 11%;
+  padding: 0 0 0 2%;
 `;

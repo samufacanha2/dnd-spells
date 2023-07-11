@@ -8,12 +8,15 @@ import {
   Level,
   Row,
   Title,
+  TitleAndLevel,
 } from './styles';
 
 import bg_image from '../../assets/card_bg.png';
 import React from 'react';
 import { useQuery } from 'react-query';
 import ReactSelect, { components } from 'react-select';
+import { useSpells } from 'contexts/spells';
+import { useUi } from 'contexts/ui';
 
 const Card: React.FC = () => {
   let cardData = {
@@ -34,13 +37,8 @@ const Card: React.FC = () => {
     No final de cada turno de uma criatura afetada, ela pode fazer um novo teste de resistência de Constituição para encerrar o efeito da gravidade intensificada.`,
   };
 
-  const { data: spells } = useQuery('spells', async () => {
-    const response = await fetch('https://www.dnd5eapi.co/api/spells');
-    const data = await response.json();
-
-    return data;
-  });
-
+  const { spells } = useSpells();
+  const { hidden } = useUi();
   const [selectedSpell, setSelectedSpell] = React.useState<any>();
 
   const { data: spell } = useQuery(
@@ -58,36 +56,43 @@ const Card: React.FC = () => {
     },
   );
 
-  cardData = {
-    title: spell?.name,
-    level: spell?.level,
-    casting_time: spell?.casting_time,
-    range_area: spell?.range,
-    components: spell?.components.join(', '),
-    duration: spell?.duration,
-    school: spell?.school?.name,
-    description: spell?.desc,
-  };
+  if (spell) {
+    cardData = {
+      title: spell?.name,
+      level: spell?.level,
+      casting_time: spell?.casting_time,
+      range_area: spell?.range,
+      components: spell?.components.join(', '),
+      duration: spell?.duration,
+      school: spell?.school?.name,
+      description: spell?.desc,
+    };
+  }
 
   return (
     <Container>
-      <ReactSelect
-        options={spells?.results.map((spell: any) => ({
-          value: spell.index,
-          label: spell.name,
-        }))}
-        onChange={option => setSelectedSpell(option)}
-        styles={{
-          container: provided => ({
-            ...provided,
-            zIndex: 20,
-          }),
-        }}
-      />
+      {!hidden && (
+        <ReactSelect
+          options={spells?.results.map((spell: any) => ({
+            value: spell.index,
+            label: spell.name,
+          }))}
+          onChange={option => setSelectedSpell(option)}
+          styles={{
+            container: provided => ({
+              ...provided,
+              zIndex: 20,
+            }),
+          }}
+          classNamePrefix="react-select"
+        />
+      )}
       <CardContainer>
         <CardText>
-          <Title contentEditable>{cardData.title}</Title>
-          <Level contentEditable>LVL {cardData.level}</Level>
+          <TitleAndLevel>
+            <Title contentEditable>{cardData.title}</Title>
+            <Level contentEditable>LVL {cardData.level}</Level>
+          </TitleAndLevel>
           <Details>
             <Row>
               <span contentEditable>Cast Time: {cardData.casting_time}</span>
