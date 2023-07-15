@@ -124,7 +124,7 @@ export const CardContainer = styled.div`
   width: 312px;
   aspect-ratio: var(--default-width) / var(--default-height);
 
-  @media screen and (min-width: 1200px) {
+  @media screen and (min-width: 768px) {
     zoom: 0.8;
   }
 `;
@@ -163,8 +163,22 @@ export const Title = styled.h1`
   font-size: 1rem;
 `;
 
+export const Icon = styled.img`
+  width: 0.75rem;
+  height: 0.75rem;
+`;
+
 export const Level = styled.h2`
   font-size: 0.8rem;
+
+  display: flex;
+  justify-content: center;
+
+  gap: 0.25rem;
+
+  ${Icon} {
+    margin-top: 0.02rem;
+  }
 `;
 
 export const Details = styled.div`
@@ -193,7 +207,24 @@ export const Row = styled.div`
   gap: 10%;
 `;
 
+export const Duration = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  gap: 0.25rem;
+`;
+
+export const Material = styled.div`
+  font-size: 0.66rem;
+  font-weight: 600;
+`;
+
 export const Description = styled.p`
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
   font-size: 0.66rem;
   font-weight: 400;
   line-height: 1.05;
@@ -211,4 +242,12 @@ export const Description = styled.p`
 
   margin: 0 11% 0 11%;
   padding: 0 0 0 2%;
+`;
+
+export const School = styled.div`
+  position: absolute;
+  bottom: 2.75%;
+  right: 8%;
+
+  font-size: 0.66rem;
 `;

@@ -5,36 +5,75 @@ import {
   Container,
   Description,
   Details,
+  Duration,
+  Icon,
   Level,
+  Material,
   Row,
+  School,
   Title,
   TitleAndLevel,
 } from './styles';
 
 import bg_image from '../../assets/card_bg.png';
-import React from 'react';
+import ritual from '../../assets/ritual.svg';
+import concentration from '../../assets/concentration.svg';
+import React, { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import ReactSelect, { components } from 'react-select';
 import { useSpells } from 'contexts/spells';
 import { useUi } from 'contexts/ui';
+import { Spell } from 'types';
+
+const getMaterial = (material?: string) => {
+  if (material?.includes('consume')) {
+    return <Material>Material: {material}</Material>;
+  }
+};
 
 const Card: React.FC = () => {
-  let cardData = {
-    title: 'Fragmentação Gravitacional',
-    level: '4',
+  let defaultSpell: Spell = {
+    higher_level: [],
+    index: 'alter-self',
+    name: 'Alter Self',
+    desc: [
+      'You assume a different form. When you cast the spell, choose one of the following options, the effects of which last for the duration of the spell. While the spell lasts, you can end one option as an action to gain the benefits of a different one.',
+      '***Aquatic Adaptation.*** You adapt your body to an aquatic environment, sprouting gills and growing webbing between your fingers. You can breathe underwater and gain a swimming speed equal to your walking speed.',
+      "***Change Appearance.*** You transform your appearance. You decide what you look like, including your height, weight, facial features, sound of your voice, hair length, coloration, and distinguishing characteristics, if any. You can make yourself appear as a member of another race, though none of your statistics change. You also can't appear as a creature of a different size than you, and your basic shape stays the same; if you're bipedal, you can't use this spell to become quadrupedal, for instance. At any time for the duration of the spell, you can use your action to change your appearance in this way again.",
+      '***Natural Weapons.*** You grow claws, fangs, spines, horns, or a different natural weapon of your choice. Your unarmed strikes deal 1d6 bludgeoning, piercing, or slashing damage, as appropriate to the natural weapon you chose, and you are proficient with your unarmed strikes. Finally, the natural weapon is magic and you have a +1 bonus to the attack and damage rolls you make using it.',
+    ],
+    range: 'Self',
+    components: ['V', 'S'],
+    ritual: false,
+    duration: 'Up to 1 hour',
+    concentration: true,
     casting_time: '1 action',
-    range_area: '60 feet',
-    components: 'V, S, M (Cajado)',
-    duration: 'Concentração, até 10 rounds',
-    school: 'Evocation',
-    description: `
-    Você invoca a energia gravitacional ao seu redor, criando uma esfera roxa de força caótica. Escolha um ponto dentro do alcance como o centro da esfera. Cada criatura em um raio de 20 pés desse ponto deve fazer um teste de resistência de Constituição.
-
-    Uma criatura que falhar no teste de resistência sofre 4d6 de dano de força e é afetada por uma gravidade intensificada. Durante a duração da magia, a velocidade da criatura é reduzida pela metade, e ela tem desvantagem em testes de Força e Destreza, Se falhar por mais de 5 fica prone. Além disso, sempre que a criatura se mover ou tentar realizar uma ação, ela sofrerá 2d6 de dano de força adicional.
-
-    Uma criatura bem-sucedida no teste de resistência sofre metade do dano de força inicial e não fica sujeita à gravidade intensificada, mas ainda recebe metade do dano de força adicional em caso de movimento ou ação.
-
-    No final de cada turno de uma criatura afetada, ela pode fazer um novo teste de resistência de Constituição para encerrar o efeito da gravidade intensificada.`,
+    level: 2,
+    school: {
+      index: 'transmutation',
+      name: 'Transmutation',
+      url: '/api/magic-schools/transmutation',
+    },
+    classes: [
+      {
+        index: 'sorcerer',
+        name: 'Sorcerer',
+        url: '/api/classes/sorcerer',
+      },
+      {
+        index: 'wizard',
+        name: 'Wizard',
+        url: '/api/classes/wizard',
+      },
+    ],
+    subclasses: [
+      {
+        index: 'lore',
+        name: 'Lore',
+        url: '/api/subclasses/lore',
+      },
+    ],
+    url: '/api/spells/alter-self',
   };
 
   const { spells } = useSpells();
@@ -47,27 +86,15 @@ const Card: React.FC = () => {
       const response = await fetch(
         `https://www.dnd5eapi.co/api/spells/${selectedSpell?.value}`,
       );
-      const data = await response.json();
+      const data: Spell = await response.json();
 
       return data;
     },
     {
       enabled: !!selectedSpell,
+      initialData: defaultSpell,
     },
   );
-
-  if (spell) {
-    cardData = {
-      title: spell?.name,
-      level: spell?.level,
-      casting_time: spell?.casting_time,
-      range_area: spell?.range,
-      components: spell?.components.join(', '),
-      duration: spell?.duration,
-      school: spell?.school?.name,
-      description: spell?.desc,
-    };
-  }
 
   return (
     <Container>
@@ -90,23 +117,40 @@ const Card: React.FC = () => {
       <CardContainer>
         <CardText>
           <TitleAndLevel>
-            <Title contentEditable>{cardData.title}</Title>
-            <Level contentEditable>LVL {cardData.level}</Level>
+            <Title contentEditable>{spell?.name}</Title>
+            <Level contentEditable>
+              LVL {spell?.level}
+              {spell?.ritual && <Icon src={ritual} />}
+            </Level>
           </TitleAndLevel>
           <Details>
             <Row>
-              <span contentEditable>Cast Time: {cardData.casting_time}</span>
-              <span contentEditable>Range/Area: {cardData.range_area}</span>
+              <span contentEditable>Cast Time: {spell?.casting_time}</span>
+              <span contentEditable>Range/Area: {spell?.range}</span>
             </Row>
             <Row>
-              <span contentEditable>Components: {cardData.components}</span>
+              <span contentEditable>
+                Components: {spell?.components?.join(', ')}
+              </span>
             </Row>
             <Row>
-              <span contentEditable>Duration: {cardData.duration}</span>
+              <Duration contentEditable>
+                Duration: {spell?.duration}
+                {spell?.concentration && <Icon src={concentration} />}
+              </Duration>
             </Row>
           </Details>
 
-          <Description contentEditable>{cardData.description}</Description>
+          <Description contentEditable>
+            {getMaterial(spell?.material)}
+            {spell?.desc?.map((desc, index) => (
+              <p key={index}>{desc}</p>
+            ))}
+          </Description>
+
+          <School>
+            <span contentEditable>{spell?.school?.index}</span>
+          </School>
         </CardText>
         <CardImage src={bg_image} />
       </CardContainer>
